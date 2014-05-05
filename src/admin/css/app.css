@@ -1,0 +1,34 @@
+
+/* line 22 : /Users/jpillora/Code/JavaScript/cms4/src/admin/src/styles/app.styl */
+
+/* line 1 : /Users/jpillora/.grunt-sources/web/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
+
+/* line 2 : /Users/jpillora/Code/JavaScript/cms4/src/admin/src/styles/app.styl */
+html,
+body {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  color: #555;
+  text-rendering: optimizeLegibility;
+}
+
+/* line 11 : /Users/jpillora/Code/JavaScript/cms4/src/admin/src/styles/app.styl */
+.cms4 {
+  padding: 30px;
+}
+
+/* line 14 : /Users/jpillora/Code/JavaScript/cms4/src/admin/src/styles/app.styl */
+.cms4 select {
+  padding: 10px 5px;
+  width: 100%;
+  -webkit-appearance: none;
+  border: 1px solid rgba(0,0,0,0.15);
+}
+
+/* line 20 : /Users/jpillora/Code/JavaScript/cms4/src/admin/src/styles/app.styl */
+.cms4 .centered {
+  text-align: center;
+}
