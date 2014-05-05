@@ -14,7 +14,7 @@ App.factory 'aws', ($rootScope, $http, $timeout) ->
       base = "#{endpoint}/#{bucket}"
       s3hook.set(accessKey, secretKey)
       checkLogin.t = $timeout checkLogin, 1000
-    else
+    else if base
       aws.showAuth = true
       s3hook.clear()
     return

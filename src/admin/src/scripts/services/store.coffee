@@ -1,5 +1,5 @@
 App.factory 'store', ($rootScope) ->
-  
+
   #isolate scope
   scope = $rootScope.store = window.store = {}
 
@@ -11,6 +11,7 @@ App.factory 'store', ($rootScope) ->
   , true
 
   commit = (key, val) ->
+    key = "cms4-#{key}"
     #save to disk
     if val is `undefined`
       localStorage.removeItem key
@@ -20,8 +21,10 @@ App.factory 'store', ($rootScope) ->
     return
 
   #init
-  Object.keys(localStorage).forEach (key) ->
-    json = localStorage.getItem key
+  Object.keys(localStorage).forEach (fullkey) ->
+    key = /^cms4-(.*)/.test(fullkey) and RegExp.$1
+    return unless key
+    json = localStorage.getItem fullkey
     scope[key] = JSON.parse json
 
   scope

@@ -1,5 +1,3 @@
-// javascript
-var ORuse = 'js';
 (function() {
   var use;
 

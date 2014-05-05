@@ -3,15 +3,6 @@
 
   App = angular.module('cms4', ['angularTreeview']);
 
-  App.directive('input', function($timeout) {
-    return {
-      scope: {},
-      link: function(scope, element, attrs) {
-        console.log(element);
-      }
-    };
-  });
-
   App.factory('aws', function($rootScope, $http, $timeout) {
     var aws, base, checkLogin, getFiles, setFiles, store, update;
     aws = $rootScope.aws = {};
@@ -27,7 +18,7 @@
         base = "" + endpoint + "/" + bucket;
         s3hook.set(accessKey, secretKey);
         checkLogin.t = $timeout(checkLogin, 1000);
-      } else {
+      } else if (base) {
         aws.showAuth = true;
         s3hook.clear();
       }
@@ -102,6 +93,7 @@
     }, true);
     commit = function(key, val) {
       var json;
+      key = "cms4-" + key;
       if (val === undefined) {
         localStorage.removeItem(key);
       } else {
@@ -109,9 +101,13 @@
         localStorage.setItem(key, json);
       }
     };
-    Object.keys(localStorage).forEach(function(key) {
-      var json;
-      json = localStorage.getItem(key);
+    Object.keys(localStorage).forEach(function(fullkey) {
+      var json, key;
+      key = /^cms4-(.*)/.test(fullkey) && RegExp.$1;
+      if (!key) {
+        return;
+      }
+      json = localStorage.getItem(fullkey);
       return scope[key] = JSON.parse(json);
     });
     return scope;
