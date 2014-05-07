@@ -3,4 +3,5 @@ App.run ($rootScope, store, aws) ->
   console.log 'run'
   $rootScope.endpoints = s3hook.endpoints()#.map (url) -> {url}
   $rootScope.files =  []
-  $rootScope.$watch 'filesTree.currentNode', (f) -> $rootScope.file = f
+  $rootScope.$watch 'filesTree.currentNode', (f) ->
+    $rootScope.file = f

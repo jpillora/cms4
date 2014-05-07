@@ -1,0 +1,9 @@
+.ui.menu
+  a.item
+    i.home.icon
+    | Content Management System on Simple Storage Service
+  .right.menu
+    .item
+      .ui.button(ng-class="{active: !aws.loggedIn || aws.showAuth, green: aws.loggedIn, red:   !aws.loggedIn }",
+                 ng-click="aws.showAuth = !aws.loggedIn || !aws.showAuth")
+        i.user.icon

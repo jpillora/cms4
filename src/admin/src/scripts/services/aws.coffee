@@ -38,6 +38,7 @@ App.factory 'aws', ($rootScope, $http, $timeout) ->
       unless parent
         /^(.+\/)?(.+)\/?/.test file.parentKey
         parent =
+          isFile: false
           parentKey: RegExp.$1 or ''
           name: RegExp.$2
           Key: file.parentKey
@@ -51,6 +52,7 @@ App.factory 'aws', ($rootScope, $http, $timeout) ->
     items.forEach (f) ->
       return if /\/$/.test f.Key
       /^(.+\/)?(.+)/.test f.Key
+      f.isFile = true
       f.children = []
       f.parentKey = RegExp.$1 or ''
       f.name = RegExp.$2
@@ -60,6 +62,7 @@ App.factory 'aws', ($rootScope, $http, $timeout) ->
     $rootScope.files = root.children
 
   getFiles = ->
+    console.log "GET #{base}"
     $http(
       method: 'GET'
       url: base

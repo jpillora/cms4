@@ -1,0 +1,16 @@
+.ui.segment
+  .ui.form
+    .two.fields
+      .field
+        label Bucket
+        input(placeholder='Bucket', type='text', ng-model='store.bucket')
+      .field
+        label Endpoint
+        select(ng-model="store.endpoint", ng-options="e for e in endpoints")
+    .two.fields
+      .field
+        label AWS Access key
+        input(type='text', placeholder='AWS Access key', ng-model='store.accessKey')
+      .field
+        label AWS Secret key
+        input(type='text', placeholder='AWS Secret key', ng-model='store.secretKey')

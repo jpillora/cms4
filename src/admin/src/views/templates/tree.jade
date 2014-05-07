@@ -1,0 +1,9 @@
+ul
+  li(data-ng-repeat='node in {{treeModel}}')
+    i.collapsed(data-ng-show='node.{{nodeChildren}}.length && node.collapsed',
+                data-ng-click='{{treeId}}.selectNodeHead(node)')
+    i.expanded(data-ng-show='node.{{nodeChildren}}.length && !node.collapsed',
+               data-ng-click='{{treeId}}.selectNodeHead(node)')
+    i.normal(data-ng-hide='node.{{nodeChildren}}.length')
+    span(data-ng-class='node.selected', data-ng-click='{{treeId}}.selectNodeLabel(node)') {{node.{{nodeLabel}}}}
+    div(data-ng-hide='node.collapsed', data-tree-id='{{treeId}}', data-tree-model='node.{{nodeChildren}}', data-node-id='{{nodeId}}', data-node-label='{{nodeLabel}}', data-node-children='{{nodeChildren}}')

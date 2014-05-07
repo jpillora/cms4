@@ -7,10 +7,10 @@ html, body
   font-family "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif
   color: #555555
   text-rendering: optimizeLegibility
+  overflow-x: hidden;
 
 .cms4
-  
-  padding 30px
+  padding 10px
   select
     padding 10px 5px
     width 100%
@@ -19,3 +19,12 @@ html, body
 
   .centered
     text-align center
+
+  .main.row
+    .column
+      &.tree
+        overflow auto
+      &.tree, &.viewer
+        height 100%
+        > .segment
+          height 99%

@@ -8,48 +8,54 @@
   </head>
   <body ng-app="cms4">
     <div class="cms4">
-      <div class="ui menu"><a class="item"><i class="home icon"></i>CMS4</a>
+      <div class="ui menu"><a class="item"><i class="home icon"></i>Content Management System on Simple Storage Service</a>
         <div class="right menu">
           <div class="item">
             <div ng-class="{active: !aws.loggedIn || aws.showAuth, green: aws.loggedIn, red:   !aws.loggedIn }" ng-click="aws.showAuth = !aws.loggedIn || !aws.showAuth" class="ui button"><i class="user icon"></i></div>
           </div>
         </div>
       </div>
-      <div ng-show="!aws.loggedIn || aws.showAuth" class="ui segment">
-        <div class="ui form">
-          <div class="two fields">
-            <div class="field">
-              <label>Bucket</label>
-              <input placeholder="Bucket" type="text" ng-model="store.bucket">
-            </div>
-            <div class="field">
-              <label>Endpoint</label>
-              <select ng-model="store.endpoint" ng-options="e for e in endpoints"></select>
-            </div>
-          </div>
-          <div class="two fields">
-            <div class="field">
-              <label>AWS Access key</label>
-              <input type="text" placeholder="AWS Access key" ng-model="store.accessKey">
-            </div>
-            <div class="field">
-              <label>AWS Secret key</label>
-              <input type="text" placeholder="AWS Secret key" ng-model="store.secretKey">
+      <div class="ui grid">
+        <div ng-if="!aws.loggedIn || aws.showAuth" class="row">
+          <div class="sixteen wide column">
+            <div class="ui segment">
+              <div class="ui form">
+                <div class="two fields">
+                  <div class="field">
+                    <label>Bucket</label>
+                    <input placeholder="Bucket" type="text" ng-model="store.bucket">
+                  </div>
+                  <div class="field">
+                    <label>Endpoint</label>
+                    <select ng-model="store.endpoint" ng-options="e for e in endpoints"></select>
+                  </div>
+                </div>
+                <div class="two fields">
+                  <div class="field">
+                    <label>AWS Access key</label>
+                    <input type="text" placeholder="AWS Access key" ng-model="store.accessKey">
+                  </div>
+                  <div class="field">
+                    <label>AWS Secret key</label>
+                    <input type="text" placeholder="AWS Secret key" ng-model="store.secretKey">
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div ng-show="aws.loggedIn" class="ui grid">
-        <div class="five wide column">
-          <div class="ui segment">
-            <div data-angular-treeview="true" data-tree-id="filesTree" data-tree-model="files" data-node-id="Key" data-node-label="name" class="tree"></div>
+        <div ng-if="aws.loggedIn" resize ng-style="{height: (height-85)+'px' }" class="main row">
+          <div class="five wide tree column">
+            <div class="ui green segment">
+              <div data-angular-treeview="true" data-tree-id="filesTree" data-tree-model="files" data-node-id="Key" data-node-label="name" class="tree"></div>
+            </div>
           </div>
-        </div>
-        <div class="eleven wide column">
-          <div ng-if="file" class="ui segment"><b>{{ file.Key }}</b>
-            <p>Test</p>
+          <div class="eleven wide viewer column">
+            <div ng-if="file" class="ui green segment"><b>{{ file.Key }}</b>
+              <p>Test</p>
+            </div>
+            <div ng-if="!file" class="ui segment"><b>Select a file</b></div>
           </div>
-          <div ng-if="!file" class="ui segment"><b>Select a file</b></div>
         </div>
       </div>
       <script src="vendor/s3hook.js"></script>

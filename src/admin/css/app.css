@@ -1,5 +1,5 @@
 
-/* line 22 : /Users/jpillora/Code/JavaScript/cms4/src/admin/src/styles/app.styl */
+/* line 31 : /Users/jpillora/Code/JavaScript/cms4/src/admin/src/styles/app.styl */
 
 /* line 1 : /Users/jpillora/.grunt-sources/web/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
 
@@ -13,11 +13,12 @@ body {
   font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
   color: #555;
   text-rendering: optimizeLegibility;
+  overflow-x: hidden;
 }
 
-/* line 11 : /Users/jpillora/Code/JavaScript/cms4/src/admin/src/styles/app.styl */
+/* line 12 : /Users/jpillora/Code/JavaScript/cms4/src/admin/src/styles/app.styl */
 .cms4 {
-  padding: 30px;
+  padding: 10px;
 }
 
 /* line 14 : /Users/jpillora/Code/JavaScript/cms4/src/admin/src/styles/app.styl */
@@ -31,4 +32,25 @@ body {
 /* line 20 : /Users/jpillora/Code/JavaScript/cms4/src/admin/src/styles/app.styl */
 .cms4 .centered {
   text-align: center;
+}
+
+/* line 23 : /Users/jpillora/Code/JavaScript/cms4/src/admin/src/styles/app.styl */
+
+/* line 24 : /Users/jpillora/Code/JavaScript/cms4/src/admin/src/styles/app.styl */
+
+/* line 25 : /Users/jpillora/Code/JavaScript/cms4/src/admin/src/styles/app.styl */
+.cms4 .main.row .column.tree {
+  overflow: auto;
+}
+
+/* line 27 : /Users/jpillora/Code/JavaScript/cms4/src/admin/src/styles/app.styl */
+.cms4 .main.row .column.tree,
+.cms4 .main.row .column.viewer {
+  height: 100%;
+}
+
+/* line 29 : /Users/jpillora/Code/JavaScript/cms4/src/admin/src/styles/app.styl */
+.cms4 .main.row .column.tree > .segment,
+.cms4 .main.row .column.viewer > .segment {
+  height: 99%;
 }

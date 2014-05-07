@@ -7,46 +7,23 @@ html
     link(rel="stylesheet", href="css/app.css")
   body(ng-app="cms4"): .cms4
 
-    .ui.menu
-      a.item
-        i.home.icon
-        | CMS4
-      .right.menu
-        .item
-          .ui.button(ng-class="{active: !aws.loggedIn || aws.showAuth, green: aws.loggedIn, red:   !aws.loggedIn }",
-                     ng-click="aws.showAuth = !aws.loggedIn || !aws.showAuth")
-            i.user.icon
-
-    .ui.segment(ng-show="!aws.loggedIn || aws.showAuth")
-      .ui.form
-        .two.fields
-          .field
-            label Bucket
-            input(placeholder='Bucket', type='text', ng-model='store.bucket')
-          .field
-            label Endpoint
-            select(ng-model="store.endpoint", ng-options="e for e in endpoints")
-
-        .two.fields
-          .field
-            label AWS Access key
-            input(type='text', placeholder='AWS Access key', ng-model='store.accessKey')
-          .field
-            label AWS Secret key
-            input(type='text', placeholder='AWS Secret key', ng-model='store.secretKey')
-
-    .ui.grid(ng-show="aws.loggedIn")
-      .five.wide.column
-        .ui.segment
-          .tree(data-angular-treeview='true',
-                data-tree-id='filesTree', data-tree-model='files',
-                data-node-id='Key', data-node-label='name')
-      .eleven.wide.column
-        .ui.segment(ng-if="file")
-          b {{ file.Key }}
-          p Test
-        .ui.segment(ng-if="!file")
-          b Select a file
+    include app/menu
+    .ui.grid
+      .row(ng-if="!aws.loggedIn || aws.showAuth")
+        .sixteen.wide.column
+          include app/auth
+      .main.row(ng-if="aws.loggedIn",resize, ng-style="{height: (height-85)+'px' }")
+        .five.wide.tree.column
+          .ui.green.segment
+            .tree(data-angular-treeview='true',
+                  data-tree-id='filesTree', data-tree-model='files',
+                  data-node-id='Key', data-node-label='name')
+        .eleven.wide.viewer.column
+          .ui.green.segment(ng-if="file")
+            b {{ file.Key }}
+            p Test
+          .ui.segment(ng-if="!file")
+            b Select a file
 
     script(src="vendor/s3hook.js")
     script(src="vendor/angular.min.js")

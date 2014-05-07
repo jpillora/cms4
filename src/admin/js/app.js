@@ -3,6 +3,55 @@
 
   App = angular.module('cms4', ['angularTreeview']);
 
+  App.directive("resize", function($window, $timeout) {
+    return function(scope, element) {
+      var recalc, t, w;
+      w = angular.element($window);
+      recalc = function() {
+        scope.height = $window.innerHeight;
+        scope.width = $window.innerWidth;
+        scope.$apply();
+      };
+      t = 0;
+      w.bind("resize", function() {
+        return $timeout(recalc);
+      });
+      $timeout(recalc);
+    };
+  });
+
+  App.directive("tree", function($compile) {
+    return {
+      restrict: "A",
+      link: function(scope, element, attrs) {
+        var nodeChildren, nodeId, nodeLabel, template, treeId, treeModel;
+        treeId = attrs.treeId;
+        treeModel = attrs.treeModel;
+        nodeId = attrs.nodeId || "id";
+        nodeLabel = attrs.nodeLabel || "label";
+        nodeChildren = attrs.nodeChildren || "children";
+        template = "<ul>\n  <li data-ng-repeat=\"node in {{treeModel}}\">\n    <i data-ng-show=\"node.{{nodeChildren}}.length &amp;&amp; node.collapsed\" data-ng-click=\"{{treeId}}.selectNodeHead(node)\" class=\"collapsed\" />\n    <i data-ng-show=\"node.{{nodeChildren}}.length &amp;&amp; !node.collapsed\" data-ng-click=\"{{treeId}}.selectNodeHead(node)\" class=\"expanded\" />\n    <i data-ng-hide=\"node.{{nodeChildren}}.length\" class=\"normal\" />\n    <span data-ng-class=\"node.selected\" data-ng-click=\"{{treeId}}.selectNodeLabel(node)\">{{node.{{nodeLabel}}}}</span>\n    <div data-ng-hide=\"node.collapsed\" data-tree-id=\"{{treeId}}\" data-tree-model=\"node.{{nodeChildren}}\" data-node-id=\"{{nodeId}}\" data-node-label=\"{{nodeLabel}}\" data-node-children=\"{{nodeChildren}}\" />\n  </li>\n</ul>";
+        if (!treeId || !treeModel) {
+          return;
+        }
+        if (attrs.angularTreeview) {
+          scope[treeId] = scope[treeId] || {};
+          scope[treeId].selectNodeHead = scope[treeId].selectNodeHead || function(selectedNode) {
+            selectedNode.collapsed = !selectedNode.collapsed;
+          };
+          scope[treeId].selectNodeLabel = scope[treeId].selectNodeLabel || function(selectedNode) {
+            if (scope[treeId].currentNode && scope[treeId].currentNode.selected) {
+              scope[treeId].currentNode.selected = undefined;
+            }
+            selectedNode.selected = "selected";
+            scope[treeId].currentNode = selectedNode;
+          };
+        }
+        element.html("").append($compile(template)(scope));
+      }
+    };
+  });
+
   App.factory('aws', function($rootScope, $http, $timeout) {
     var aws, base, checkLogin, getFiles, setFiles, store, update;
     aws = $rootScope.aws = {};
@@ -44,6 +93,7 @@
         if (!parent) {
           /^(.+\/)?(.+)\/?/.test(file.parentKey);
           parent = {
+            isFile: false,
             parentKey: RegExp.$1 || '',
             name: RegExp.$2,
             Key: file.parentKey,
@@ -59,6 +109,7 @@
           return;
         }
         /^(.+\/)?(.+)/.test(f.Key);
+        f.isFile = true;
         f.children = [];
         f.parentKey = RegExp.$1 || '';
         f.name = RegExp.$2;
@@ -67,6 +118,7 @@
       return $rootScope.files = root.children;
     };
     getFiles = function() {
+      console.log("GET " + base);
       return $http({
         method: 'GET',
         url: base
