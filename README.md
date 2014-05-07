@@ -5,7 +5,7 @@
 
 # CMS4
 
-A serverless **C**ontent **M**anagment **S**ystem on **S**imple **S**torage **S**ervice
+A serverless **C** ontent **M** anagment **S** ystem on **S** imple **S** torage **S** ervice
 
 ## Installation
 
